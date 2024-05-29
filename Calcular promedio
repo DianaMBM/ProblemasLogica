@@ -1,0 +1,17 @@
+// Calcular promedio
+
+var valor = 0;
+var suma_total = 0;
+function calcular_promedio(){
+    console.log("Se le pedirá 10 números para realizar el promedio")
+    for ( var i = 0; i < 10; i++  ){
+        var valor = prompt("Ingrese un número: ");
+        valor = parseInt(valor);
+        suma_total = suma_total + valor;
+    }
+
+    var promedio = suma_total / 10;
+    console.log(" El promedio es " + promedio );
+}
+
+calcular_promedio();
