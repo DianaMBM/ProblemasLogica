@@ -1,0 +1,14 @@
+function calcular_descuento(precio, descuento){
+    precio = parseInt(precio);
+    descuento = parseInt(descuento)
+    
+    var producto_descuento = (precio * descuento)/ 100;
+    var descuento_final = precio - producto_descuento;
+    return descuento_final;
+}
+{
+    var precio = prompt( "Ingrese el precio del producto:");
+    var descuento = prompt("Ingrese el descuento, únicamente el número,sin el porcentaje: ");
+    var descuento_calculado = calcular_descuento(precio, descuento);
+    console.log ( " El precio final con el descuento aplicado sería el siguiente: " + descuento_calculado);
+}
