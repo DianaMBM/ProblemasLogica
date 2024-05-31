@@ -1,0 +1,13 @@
+function calcular_IMC (peso, altura){
+    var peso = parseFloat(peso);
+    var altura = parseFloat(altura);
+    imc = (703*peso)/(altura*altura);
+    imc = parseFloat(imc);
+    return imc;}
+    
+    {
+      var peso = prompt("Ingrese el peso en libras: ");
+      var altura = prompt(" Ingrese la altura en pulgadas: ");
+      var imc = calcular_IMC(peso, altura);
+      console.log("El resultado del IMC es:" + imc);
+    }
