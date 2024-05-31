@@ -1,5 +1,3 @@
-// menú de operaciones
-
 function menuOpciones() {
     console.log("------ Menú de operaciones -----");
     console.log("1. Suma");
@@ -8,68 +6,63 @@ function menuOpciones() {
     console.log("4. División");
     console.log("5. Salir");
 
-    let opcion = parseInt(prompt("Ingrese una opción del 1 al 5: "));
+    var opcion = parseInt(prompt("Ingrese una opción del 1 al 5: "));
 
-    // Validar opción
-    while (opcion < 1 || opcion > 5) {
-        console.log("Opción incorrecta. Ingresa nuevamente el número ");
-        opcion = parseInt(prompt("Ingrese una opción del 1 al 5: "));
-    }
     return opcion;
 }
 
 function sumar() {
-    let primerNumero = parseInt(prompt("Ingresa un número entero: "));
-    let segundoNumero = parseInt(prompt("Ingresa otro número entero: "));
+    var primerNumero = parseInt(prompt("Ingresa un número entero: "));
+    var segundoNumero = parseInt(prompt("Ingresa otro número entero: "));
     
-    let resultado = primerNumero + segundoNumero;
+    var resultado = primerNumero + segundoNumero;
     return resultado;
 }
 
 function restar() {
-    let primerNumero = parseInt(prompt("Ingresa un número entero: "));
-    let segundoNumero = parseInt(prompt("Ingresa otro número entero: "));
+    var primerNumero = parseInt(prompt("Ingresa un número entero: "));
+    var segundoNumero = parseInt(prompt("Ingresa otro número entero: "));
     
-    let resultado = primerNumero - segundoNumero;
+    var resultado = primerNumero - segundoNumero;
     return resultado;
 }
 
 function multiplicar() {
-    let primerNumero = parseInt(prompt("Ingresa un número entero: "));
-    let segundoNumero = parseInt(prompt("Ingresa otro número entero: "));
+    var primerNumero = parseInt(prompt("Ingresa un número entero: "));
+    var segundoNumero = parseInt(prompt("Ingresa otro número entero: "));
     
-    let resultado = primerNumero * segundoNumero;
+    var resultado = primerNumero * segundoNumero;
     return resultado;
 }
 
 function division() {
-    let primerNumero = parseInt(prompt("Ingresa un número entero: "));
-    let segundoNumero = parseInt(prompt("Ingresa otro número entero: "));
+    var primerNumero = parseInt(prompt("Ingresa un número entero: "));
+    var segundoNumero = parseInt(prompt("Ingresa otro número entero: "));
     
-    let resultado = primerNumero / segundoNumero;
+    var resultado = primerNumero / segundoNumero;
     return resultado;
 }
 
 let continuar = true;
 
 while (continuar) {
-    let opcion = menuOpciones();
+    var opcion = menuOpciones();
 
     switch (opcion) {
         case 1:
-            let resultadoSuma = sumar();
+            var resultadoSuma = sumar();
             console.log(`El resultado de la suma es ${resultadoSuma}`);
             break;
         case 2:
-            let resultadoResta = restar();
+            var resultadoResta = restar();
             console.log(`El resultado de la resta es ${resultadoResta}`);
             break;
         case 3:
-            let resultadoMultiplicacion = multiplicar();
+            var resultadoMultiplicacion = multiplicar();
             console.log(`El resultado de la multiplicación es ${resultadoMultiplicacion}`);
             break;
         case 4:
-            let resultadoDivision = division();
+            var resultadoDivision = division();
             console.log(`El resultado de la división es ${resultadoDivision}`);
             break;
         case 5:
