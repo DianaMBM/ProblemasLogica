@@ -1,0 +1,13 @@
+function imprimir_tabla_multiplicar(entero){
+    entero = parseInt(entero);
+    for ( var i = 0; i <= 10; i ++){
+    var resultado = entero * i;
+    console.log(`La mutiplicación de ${entero} por ${i} es ${resultado} `);
+    }
+    
+    return resultado;
+    
+}
+
+let entero = prompt("Ingrese el número entero que desea conocer su tabla de mutiplicación: ");
+var tabla = imprimir_tabla_multiplicar(entero);
