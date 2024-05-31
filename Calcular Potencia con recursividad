@@ -1,0 +1,12 @@
+function calcular_potencia(base, exponente) {
+    if (exponente === 0) {
+        return 1;
+    } else {
+        return base * calcular_potencia(base, exponente - 1);
+    }
+}
+
+var base = parseInt(prompt("Ingrese la base:"));
+var exponente = parseInt(prompt("Ingrese el exponente:"));
+
+console.log("Potencia: " + calcular_potencia(base, exponente));
