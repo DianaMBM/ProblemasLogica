@@ -1,0 +1,222 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Pelicula
+{
+    public string Titulo;
+    public string Director;
+    public int Anio;
+    public string Genero;
+}
+
+class Program
+{
+    static List<Pelicula> coleccionPeliculas = new List<Pelicula>();
+
+    static void Main(string[] args)
+    {
+        bool continuar = true;
+
+        while (continuar)
+        {
+            MostrarMenu();
+
+            int opcion;
+            if (!int.TryParse(Console.ReadLine(), out opcion) || opcion < 1 || opcion > 5)
+            {
+                Console.WriteLine("¡Opción inválida! Ingrese un número del 1 al 5");
+                continue;
+            }
+
+            switch (opcion)
+            {
+                case 1:
+                    do
+                    {
+                        AgregarPelicula();
+                        Console.WriteLine("¿Desea agregar otra película? (si/no)");
+                    } while (Console.ReadLine().ToLower() == "si");
+                    break;
+                case 2:
+                        MostrarColeccion();
+                        EliminarPelicula();
+                    break;
+        
+                case 3:
+                    do
+                    {
+                        BuscarPelicula();
+                        Console.WriteLine("¿Desea buscar otra película? (si/no)");
+                    } while (Console.ReadLine().ToLower() == "si");
+                    break;
+                case 4:
+                    MostrarColeccion();
+                    break;
+                case 5:
+                    continuar = false;
+                    Console.WriteLine("¡Hasta luego!");
+                    break;
+            }
+
+            Console.WriteLine();
+        }
+    }
+
+    static void MostrarMenu()
+    {
+        Console.WriteLine("╔═════════════════════════════════════╗");
+        Console.WriteLine("║           Menú Principal            ║");
+        Console.WriteLine("╠═════════════════════════════════════╣");
+        Console.WriteLine("║  1. Agregar película                ║");
+        Console.WriteLine("║  2. Eliminar película               ║");
+        Console.WriteLine("║  3. Buscar película                 ║");
+        Console.WriteLine("║  4. Mostrar colección               ║");
+        Console.WriteLine("║  5. Salir                           ║");
+        Console.WriteLine("╚═════════════════════════════════════╝");
+        Console.Write("Seleccione una opción: ");
+    }
+
+    static void AgregarPelicula()
+    {
+        Console.WriteLine("Ingrese el nombre de la película: ");
+        string nombrePelicula = Console.ReadLine();
+
+        // Verificamos si la película ya existe en la colección
+        if (coleccionPeliculas.Any(p => p.Titulo.Equals(nombrePelicula, StringComparison.OrdinalIgnoreCase)))
+        {
+            Console.WriteLine("La película ya existe en la colección.");
+            return; 
+        }
+ 
+        Console.WriteLine("Ingrese el nombre del director: ");
+        string nombreDirector = Console.ReadLine();
+        Console.WriteLine("Ingrese el año de lanzamiento:");
+        int anioLanzamiento;
+        while (!int.TryParse(Console.ReadLine(), out anioLanzamiento) || anioLanzamiento < 1900 || anioLanzamiento > DateTime.Now.Year)
+        {
+            Console.WriteLine("Año inválido. Ingrese un año válido:");
+        }
+        Console.WriteLine("Ingrese el género de la película:");
+        string generoPelicula = Console.ReadLine();
+
+        //Inicializamos el objeto pelicula
+
+        coleccionPeliculas.Add(new Pelicula
+        {
+            Titulo = nombrePelicula,
+            Director = nombreDirector,
+            Anio = anioLanzamiento,
+            Genero = generoPelicula
+        });
+
+        Console.WriteLine("Película agregada correctamente.");
+    }
+
+    static void EliminarPelicula()
+    {
+        while (true)
+        {
+            // Verificamos si la lista está vacía
+            if (coleccionPeliculas.Count == 0)
+            {
+                Console.WriteLine("No hay películas en la colección para eliminar.");
+                return;
+            }
+
+            Console.WriteLine("Ingrese el título de la película que desea eliminar:");
+            string tituloEliminar = Console.ReadLine();
+
+            // Buscamos la película por título ignorando mayúsculas y minúsculas
+            var peliculaAEliminar = coleccionPeliculas.FirstOrDefault(p => p.Titulo.Equals(tituloEliminar, StringComparison.OrdinalIgnoreCase));
+
+            // Verificamos si la película fue encontrada
+            if (peliculaAEliminar != null)
+            {
+                coleccionPeliculas.Remove(peliculaAEliminar);
+                Console.WriteLine($"Película \"{peliculaAEliminar.Titulo}\" eliminada correctamente.");
+            }
+            else
+            {
+                Console.WriteLine("La película no se encontró en la colección.");
+            }
+
+            Console.WriteLine("¿Desea eliminar otra película? (si/no)");
+            string respuesta = Console.ReadLine().ToLower();
+            if (respuesta != "si")
+            {
+                return;
+            }
+        }
+    }
+
+    static void BuscarPelicula()
+    {
+        Console.WriteLine("Ingrese el título o director de la película que desea buscar:");
+        string busqueda = Console.ReadLine();
+
+        // Filtramos las películas que coincidan con el título o director especificado
+        List<Pelicula> peliculasEncontradas = coleccionPeliculas
+            .Where(p => p.Titulo.Contains(busqueda, StringComparison.OrdinalIgnoreCase) ||
+                        p.Director.Contains(busqueda, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        if (peliculasEncontradas.Count > 0)
+        {
+            Console.WriteLine("Peliculas encontradas:");
+            Console.WriteLine();
+
+            // Mostramos la información de las películas encontradas
+            foreach (Pelicula pelicula in peliculasEncontradas)
+            {
+                MostrarInformacionPelicula(pelicula);
+                Console.WriteLine();
+            }
+        }
+        else
+        {
+            Console.WriteLine("No se encontraron películas con el título o director especificado.");
+        }
+    }
+
+    static void MostrarInformacionPelicula(Pelicula pelicula)
+    {
+        Console.WriteLine($"Título: {pelicula.Titulo}");
+        Console.WriteLine($"Director: {pelicula.Director}");
+        Console.WriteLine($"Año: {pelicula.Anio}");
+        Console.WriteLine($"Género: {pelicula.Genero}");
+    }
+
+    static void MostrarColeccion()
+    {
+        // Verifica si la colección de películas está vacía
+        if (coleccionPeliculas.Count == 0)
+        {
+            // Muestra un mensaje indicando que no hay películas en la colección y retorna
+            Console.WriteLine("No hay películas en la colección.");
+            return;
+        }
+
+        // Si hay películas en la colección, muestra el encabezado
+        Console.WriteLine("Colección de películas:");
+        Console.WriteLine();
+
+        // Encabezado de la tabla
+        Console.WriteLine("----------------------------------------------------------------------------------");
+        Console.WriteLine("| {0,-3} | {1,-40} | {2,-20} | {3,-6} |",
+                          "No.", "Título", "Director", "Año");
+        Console.WriteLine("----------------------------------------------------------------------------------");
+
+        // Itera sobre la colección de películas para mostrar cada película
+        for (int i = 0; i < coleccionPeliculas.Count; i++)
+        {
+            var pelicula = coleccionPeliculas[i];
+            // Muestra cada película en formato de tabla
+            Console.WriteLine("| {0,-3} | {1,-40} | {2,-20} | {3,-6} |",
+                              i + 1, pelicula.Titulo, pelicula.Director, pelicula.Anio);
+        }
+
+        Console.WriteLine("----------------------------------------------------------------------------------");
+        Console.WriteLine();
+    }
+}
